@@ -27,7 +27,7 @@ void BaseActor::Draw()
 
 }
 
-// Õ“Ë‚Ìˆ—‚ğs‚¤
+// Õ“Ëˆ—
 void BaseActor::OnCollision(BaseActor* other)
 {
 

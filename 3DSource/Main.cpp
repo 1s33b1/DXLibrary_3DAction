@@ -10,6 +10,7 @@
 #include "math.h"
 #include "GameParameter.h"
 #include <memory>
+#include "BaseActor.h"
 
 // ‰Šú‰»ˆ—
 static void Initialize()
