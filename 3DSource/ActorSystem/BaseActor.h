@@ -12,7 +12,7 @@ public:
 	virtual void AddActor(std::unique_ptr<BaseActor>);
 	virtual void RemoveActor(BaseActor* actor);
 private:
-	std::vector<BaseActor* > m_ChildActors; // アクターの子供を入れるベクター配列
+	std::vector<BaseActor*> m_ChildActors; // アクターの子供を入れるベクター配列
 protected:
 	enum ActorStatus
 	{
@@ -21,5 +21,5 @@ protected:
 		REST, // 休止(Update、Drawを行わない)
 	};
 	ActorStatus m_Status; // アクターの状態
-	char m_Tag[256]; // アクターのタグ
+	static char m_Tag[256]; // アクターのタグ
 };

@@ -3,6 +3,8 @@
 
 // コンストラクタ
 Player::Player()
+	:m_Position({ 0.0f, 0.0f, 0.0f }),
+	m_Tag("Player")
 {
 	m_Model = MV1LoadModel("Contents/PlayerModel/Player.mv1");
 }
@@ -23,7 +25,7 @@ void Player::Update()
 // 描画処理
 void Player::Draw()
 {
-
+	MV1DrawModel(m_Model);
 }
 
 // 衝突処理
