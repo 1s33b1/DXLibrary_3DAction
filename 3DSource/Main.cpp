@@ -37,13 +37,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		ClearDrawScreen(); // 画面をまっさらに
-
-		//m_Player->Update(); // プレイヤーの更新
-		//m_Player->Draw(); // プレイヤーの描画
-		//m_GameCamera->Update(); // カメラの更新
-		//m_Bullet->Update(); // 弾丸の更新
-		//m_Bullet->Draw(); // 弾丸の描画
-
 		DrawLine3D(VGet(-1000.0f, 0.0f, 0.0f), VGet(1000.0f, 0.0f, 0.0f), GetColor(255, 0, 0)); // X軸を赤で描画
 		ScreenFlip();    // 画面を更新して、少し休む	
 	}

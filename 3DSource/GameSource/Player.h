@@ -17,5 +17,5 @@ private:
 	VECTOR m_Rotation; // プレイヤーの回転
 	VECTOR m_Scale; // プレイヤーのスケール
 	int m_Model; // プレイヤーのモデル
-	int color; // プレイヤーの色
+	int color; // プレイヤーの色(メインシステムとなる数字キーで色の変更を行う)
 };
