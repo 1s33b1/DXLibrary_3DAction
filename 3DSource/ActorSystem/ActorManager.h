@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 class BaseActor;
 
 class ActorManager
@@ -13,5 +14,5 @@ public:
 	void AllCollision(); // すべてのアクターの衝突処理
 	void AllClear(); // すべてのアクターを削除する処理
 private:
-	std::vector<BaseActor*> m_Actors; // アクターのベクター配列
+	std::vector<std::unique_ptr<BaseActor*>> m_Children; // アクターのベクター配列
 };

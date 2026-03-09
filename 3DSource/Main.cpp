@@ -7,7 +7,6 @@
 /// </summary>
 
 #include "DxLib.h"
-#include "math.h"
 #include "GameParameter.h"
 #include <memory>
 #include "BaseActor.h"

@@ -3,20 +3,19 @@
 ///
 #pragma once
 #include "BaseActor.h"
+#include <string>
 
 class Player : public BaseActor
 {
 public:
 	Player();
 	~Player();
-	void Update();
-	void Draw();
-	void OnCollision(BaseActor* other);
+	void Update() override;
+	void Draw() override;
+	void OnCollision(BaseActor* other) override;
+	void KeyInput(); // プレイヤーの入力管理
+	void UpdateMovement(); // プレイヤーの移動管理
+
 private:
-	VECTOR m_Position; // プレイヤーの位置
-	VECTOR m_Rotation; // プレイヤーの回転
-	VECTOR m_Scale; // プレイヤーのスケール
 	int m_Model; // プレイヤーのモデル
-	int color; // プレイヤーの色(メインシステムとなる数字キーで色の変更を行う)
-	char m_Tag[256]; // プレイヤーのタグ
 };
