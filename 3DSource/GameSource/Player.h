@@ -13,9 +13,8 @@ public:
 	void Update() override;
 	void Draw() override;
 	void OnCollision(BaseActor* other) override;
-	void KeyInput(); // プレイヤーの入力管理
-	void UpdateMovement(); // プレイヤーの移動管理
-
+	void KeyInput();
+	void UpdateMovement();
 private:
 	int m_Model; // プレイヤーのモデル
 };

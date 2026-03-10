@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "DxLib.h"
+#include "GameParameter.h"
 
 // コンストラクタ
 Player::Player()
@@ -19,8 +20,8 @@ Player::~Player()
 // 更新処理
 void Player::Update()
 {
-	m_Position.z += 10.0f; // プレイヤーを前進させる
-	MV1SetPosition(m_Model, m_Position);
+	KeyInput();
+	UpdateMovement();
 }
 
 // 描画処理
@@ -33,4 +34,27 @@ void Player::Draw()
 void Player::OnCollision(BaseActor* other)
 {
 
+}
+
+// プレイヤーの入力管理
+void Player::KeyInput()
+{
+	if (CheckHitKey(KEY_INPUT_W)) {
+		m_Position.z += PlayerSettings::playerSpeed; // 前進
+	}
+	if (CheckHitKey(KEY_INPUT_S)) {
+		m_Position.z -= PlayerSettings::playerSpeed; // 後退
+	}	
+	if (CheckHitKey(KEY_INPUT_A)) {
+		m_Position.x -= PlayerSettings::playerSpeed; // 後退
+	}
+	if (CheckHitKey(KEY_INPUT_D)) {
+		m_Position.x += PlayerSettings::playerSpeed; // 後退
+	}
+}
+
+// プレイヤーの移動管理
+void Player::UpdateMovement()
+{
+	MV1SetPosition(m_Model, m_Position);
 }

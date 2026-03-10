@@ -1,4 +1,5 @@
 #include "ActorManager.h"
+#include "BaseActor.h"
 
 // コンストラクタ
 ActorManager::ActorManager()
@@ -17,6 +18,7 @@ void ActorManager::AllUpdate()
 {
 	for(auto it = m_Children.begin(); it != m_Children.end(); ++it)
 	{
+		if(*it->)
 	}
 }
 
@@ -40,8 +42,8 @@ void ActorManager::AddActor(BaseActor* actor)
 	m_Children.push_back(std::make_unique<BaseActor*>(actor));
 }
 
-// すべてのアクターを削除する処理
-void ActorManager::AllClear()
+// アクターを削除する処理
+void ActorManager::ClearActor()
 {
 
 }

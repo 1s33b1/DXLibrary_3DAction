@@ -20,3 +20,7 @@ namespace EnemySettings {
 namespace ExplosionSettings {
 	const int divisionNum = 11; // ‰æ‘œ‚ğ•ªŠ„‚·‚é‚Æ‚«‚ÌŒÂ”B
 }
+
+namespace PlayerSettings {
+	const int playerSpeed = 5;
+}
