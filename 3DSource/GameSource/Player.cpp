@@ -3,7 +3,7 @@
 #include "GameParameter.h"
 
 // コンストラクタ
-Player::Player()
+Player::Player(ActorManager* manager)
 {
 	m_Position = { 0.0f, 0.0f, 0.0f }; // 初期位置を設定
 	m_Rotation = { 0.0f, 0.0f, 0.0f }; // 初期回転を設定

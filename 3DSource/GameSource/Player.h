@@ -5,10 +5,12 @@
 #include "BaseActor.h"
 #include <string>
 
+class ActorManager;
+
 class Player : public BaseActor
 {
 public:
-	Player();
+	Player(ActorManager* manager);
 	~Player();
 	void Update() override;
 	void Draw() override;
