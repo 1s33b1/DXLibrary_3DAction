@@ -25,7 +25,7 @@ public:
 	void SetStatus(ActorStatus status) { m_Status = status; } // アクターのステータスを設定する関数
 
 	std::string GetTag() const { return m_Tag; } // アクターのタグ
-	void Add(std::unique_ptr<BaseActor> newActor) const {};
+	void Add(std::unique_ptr<BaseActor> newActor) {};
 
 protected:
 	ActorStatus m_Status; // アクターの状態

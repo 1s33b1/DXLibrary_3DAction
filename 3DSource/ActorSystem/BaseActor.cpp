@@ -34,7 +34,7 @@ void BaseActor::OnCollision(BaseActor* other)
 
 }
 
-void BaseActor::Add(std::unique_ptr<BaseActor> newActor) const
+void BaseActor::Add(std::unique_ptr<BaseActor> newActor) 
 {
 	// 例：新しいアクター（ここでは仮に何かの派生クラス）を生成
 	// auto newActor = std::make_unique<Bullet>(p_actorManager); 
