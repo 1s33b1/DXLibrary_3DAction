@@ -24,3 +24,17 @@ namespace ExplosionSettings {
 namespace PlayerSettings {
 	const int playerSpeed = 5;
 }
+
+namespace ColorSettings {
+	const int Red_r = 255;
+	const int Red_g = 0;
+	const int Red_b = 0;
+
+	const int Blue_r = 0;
+	const int Blue_g = 255;
+	const int Blue_b = 0;
+
+	const int Green_r = 0;
+	const int Green_g = 0;
+	const int Green_b = 255;
+}

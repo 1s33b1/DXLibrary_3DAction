@@ -11,21 +11,21 @@ public:
 	BaseActor();
 	BaseActor(ActorManager* manager);
 	~BaseActor();
-	virtual void Init() = 0; // 純粋仮想関数。セット関数を使用するときとかに呼び出すもの
+	//virtual void Init() = 0; // 純粋仮想関数。セット関数を使用するときとかに呼び出すもの
 	virtual void Update();
 	virtual void Draw() = 0; // 純粋仮想関数(このクラスを継承したクラスで必ず実装する必要がある)
 	virtual void OnCollision(BaseActor* other);
 	int GetStatus() const { return m_Status; } // アクターのステータスを取得する関数
 	enum ActorStatus
 	{
-		UPDATE = 2, // 更新中
-		DEAD = 1, // 死亡
-		REST = 0, // 休止(Update、Drawを行わない)
+		UPDATE, // 更新中
+		DEAD, // 死亡
+		REST, // 休止(Update、Drawを行わない)
 	};
 	void SetStatus(ActorStatus status) { m_Status = status; } // アクターのステータスを設定する関数
 
 	std::string GetTag() const { return m_Tag; } // アクターのタグ
-	void Add(std::unique_ptr<BaseActor> newActor) {};
+	void Add(std::unique_ptr<BaseActor> newActor);
 
 protected:
 	ActorStatus m_Status; // アクターの状態

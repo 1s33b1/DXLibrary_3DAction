@@ -1,3 +1,10 @@
+//---------------------------------------
+// プレイヤークラス
+// BaseActorを継承。
+// 初期値：
+// 赤色、
+//---------------------------------------
+
 #include "Player.h"
 #include "DxLib.h"
 #include "GameParameter.h"
@@ -9,6 +16,8 @@ Player::Player(ActorManager* manager)
 	m_Rotation = { 0.0f, 0.0f, 0.0f }; // 初期回転を設定
 	m_Tag = "Player"; // タグを設定
 	m_Model = MV1LoadModel("Contents/PlayerModel/Player.mv1");
+	m_Status = UPDATE;
+	m_Color = GetColor(ColorSettings::Red_r, ColorSettings::Red_g, ColorSettings::Red_b);
 }
 
 // デストラクタ
