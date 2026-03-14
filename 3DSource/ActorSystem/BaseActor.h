@@ -11,7 +11,7 @@ public:
 	BaseActor();
 	BaseActor(ActorManager* manager);
 	~BaseActor();
-	//virtual void Init() = 0; // 純粋仮想関数。セット関数を使用するときとかに呼び出すもの
+	//virtual void Init(); // 純粋仮想関数。セット関数を使用するときとかに呼び出すもの
 	virtual void Update();
 	virtual void Draw() = 0; // 純粋仮想関数(このクラスを継承したクラスで必ず実装する必要がある)
 	virtual void OnCollision(BaseActor* other);
@@ -26,6 +26,7 @@ public:
 
 	std::string GetTag() const { return m_Tag; } // アクターのタグ
 	void Add(std::unique_ptr<BaseActor> newActor);
+	VECTOR GetPos() { return m_Position; } // アクターの場所を返す関数
 
 protected:
 	ActorStatus m_Status; // アクターの状態

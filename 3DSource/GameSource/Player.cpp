@@ -10,6 +10,9 @@
 #include "GameParameter.h"
 
 // コンストラクタ
+Player::Player()
+{
+}
 Player::Player(ActorManager* manager)
 {
 	m_Position = { 0.0f, 0.0f, 0.0f }; // 初期位置を設定

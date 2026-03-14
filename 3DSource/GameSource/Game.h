@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+class Camera;
 
 class ActorManager;
 class Game
@@ -21,10 +22,10 @@ public:
 	int RunGame(); // メインループ
 	bool Initialize(); // 初期化処理
 	void Finalize(); // 終了処理
-
 private:
 	void Update(); // 更新処理
 	void Draw(); // 描画処理
 	void CreateInitialActors();
 	std::unique_ptr<ActorManager> p_actorManager;
+	std::unique_ptr<Camera> p_camera;
 };

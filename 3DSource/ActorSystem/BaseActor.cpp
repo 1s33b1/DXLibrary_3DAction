@@ -9,7 +9,6 @@
 // コンストラクタ
 BaseActor::BaseActor()
 {
-
 }
 BaseActor::BaseActor(ActorManager* manager)
 	:m_Tag("NoName"),

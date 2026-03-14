@@ -1,10 +1,12 @@
 //
 // シングルトンパターンで作成
 //
-#include "DxLib.h"
+
 #include "Game.h"
+#include "DxLib.h"
 #include "GameParameter.h"
 #include "ActorManager.h"
+#include "Camera.h"
 #include "Player.h"
 
 Game::Game()
@@ -20,6 +22,9 @@ void Game::Update()
 	if (p_actorManager) {
 		p_actorManager->AllUpdate();
 	}
+	if (p_camera) {
+		p_camera->Update();
+	}
 }
 
 // 描画処理
@@ -33,10 +38,12 @@ void Game::Draw()
 // メインループ
 int Game::RunGame() 
 {
+	if (!Initialize()) return -1;
+
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		ClearDrawScreen(); // 画面をまっさらに
-		DrawLine3D(VGet(-1000.0f, 0.0f, 0.0f), VGet(1000.0f, 0.0f, 0.0f), GetColor(255, 0, 0)); // X軸を赤で描画
+		//DrawLine3D(VGet(-1000.0f, 0.0f, 0.0f), VGet(1000.0f, 0.0f, 0.0f), GetColor(255, 0, 0)); // X軸を赤で描画
 		Update();
 		Draw();
 		ScreenFlip();    // 画面を更新して、少し休む	 
@@ -55,6 +62,7 @@ bool Game::Initialize()
 	SetWaitVSyncFlag(TRUE); // 垂直同期を有効にする。本来であればあんまりおすすめされないらしい。	
 	// DXライブラリ初期化処理
 	if (DxLib_Init() == -1) return false;
+	p_actorManager = std::make_unique<ActorManager>(); // マネージャーの生成
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetMouseDispFlag(FALSE); // マウスカーソルを非表示
 	SetUseZBuffer3D(TRUE); // Zバッファを有効
