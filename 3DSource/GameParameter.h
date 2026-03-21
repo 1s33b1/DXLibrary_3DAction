@@ -38,3 +38,11 @@ namespace ColorSettings {
 	const int Green_g = 0;
 	const int Green_b = 255;
 }
+
+namespace GroundSettings{
+	const int groundMax; // •`‰æ‚·‚é’n–Ê‚ÌÅ‘åŒÂ”
+	const float cx = 0.5f;
+	const float cy = 0.5f;
+	const float size = 100.0f;
+	const float angle = 0.0f;
+}

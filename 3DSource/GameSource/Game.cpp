@@ -8,6 +8,7 @@
 #include "ActorManager.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Ground.h"
 
 Game::Game()
 {
@@ -23,7 +24,8 @@ void Game::Update()
 		p_actorManager->AllUpdate();
 	}
 	if (p_camera) {
-		p_camera->Update();
+		VECTOR playerPos = p_actorManager->GetPlayerPosition();
+		p_camera->Update(playerPos);
 	}
 }
 
@@ -43,13 +45,16 @@ int Game::RunGame()
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
 	{
 		ClearDrawScreen(); // 画面をまっさらに
-		//DrawLine3D(VGet(-1000.0f, 0.0f, 0.0f), VGet(1000.0f, 0.0f, 0.0f), GetColor(255, 0, 0)); // X軸を赤で描画
+		{
+			DrawLine3D(VGet(-1000.0f, 0.0f, 0.0f), VGet(1000.0f, 0.0f, 0.0f), GetColor(255, 0, 0)); // X軸を赤で描画
+			DrawLine3D(VGet(0.0f, 0.0f, -1000.0f), VGet(0.0f, 0.0f, 1000.0f), GetColor(255, 0, 0));
+		}
 		Update();
 		Draw();
-		ScreenFlip();    // 画面を更新して、少し休む	 
+		ScreenFlip();    // 画面を更新して、少し休む
 	}
 
-	//-------------
+	//-------------------------------------
 	// 終了処理
 	Finalize();
 	return 0;
@@ -63,6 +68,7 @@ bool Game::Initialize()
 	// DXライブラリ初期化処理
 	if (DxLib_Init() == -1) return false;
 	p_actorManager = std::make_unique<ActorManager>(); // マネージャーの生成
+	p_camera = std::make_unique<Camera>();
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetMouseDispFlag(FALSE); // マウスカーソルを非表示
 	SetUseZBuffer3D(TRUE); // Zバッファを有効
@@ -82,6 +88,7 @@ void Game::Finalize()
 void Game::CreateInitialActors()
 {
 	p_actorManager->AddActor(std::make_unique<Player>());
+	p_actorManager->AddActor(std::make_unique<Ground>());
 }
 
 

@@ -10,7 +10,6 @@ ActorManager::ActorManager()
 // デストラクタ
 ActorManager::~ActorManager()
 {
-
 }
 
 // すべてのアクターの更新処理
@@ -33,7 +32,6 @@ void ActorManager::AllDraw()
 // すべてのアクターの衝突処理
 void ActorManager::AllCollision()
 {
-
 }
 
 // アクターを追加する関数
@@ -58,4 +56,16 @@ void ActorManager::ClearActor()
 // すべてのアクターを削除する関数
 void ActorManager::AllDestroy(BaseActor* actor)
 {
+}
+
+// プレイヤーの位置を返す関数
+VECTOR ActorManager::GetPlayerPosition()
+{
+	for (const auto& actor : m_Children) {
+		if (actor->GetTag() == "Player") {
+			return actor->GetPos();
+		}
+	}
+	// プレイヤーが見つからなかった場合、原点を返す
+	return VGet(0.0f, 0.0f, 0.0f);
 }

@@ -43,3 +43,8 @@ void BaseActor::Add(std::unique_ptr<BaseActor> newActor)
 		p_actorManager->AddActor(std::move(newActor));
 	}
 }
+
+void BaseActor::SetPos(VECTOR setPosition)
+{
+	m_Position = setPosition;
+}

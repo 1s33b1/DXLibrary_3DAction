@@ -10,17 +10,17 @@
 #include "GameParameter.h"
 
 // コンストラクタ
-Player::Player()
-{
-}
-Player::Player(ActorManager* manager)
+Player::Player() : BaseActor(p_actorManager)
 {
 	m_Position = { 0.0f, 0.0f, 0.0f }; // 初期位置を設定
 	m_Rotation = { 0.0f, 0.0f, 0.0f }; // 初期回転を設定
-	m_Tag = "Player"; // タグを設定
 	m_Model = MV1LoadModel("Contents/PlayerModel/Player.mv1");
+	m_Tag = "Player"; // タグを設定
 	m_Status = UPDATE;
 	m_Color = GetColor(ColorSettings::Red_r, ColorSettings::Red_g, ColorSettings::Red_b);
+}
+Player::Player(ActorManager* manager)
+{
 }
 
 // デストラクタ
