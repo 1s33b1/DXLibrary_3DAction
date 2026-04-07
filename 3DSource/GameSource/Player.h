@@ -14,6 +14,7 @@ public:
 	Player();
 	Player(ActorManager* manager);
 	~Player();
+	void Initialize() override;
 	void Update() override;
 	void Draw() override;
 	void OnCollision(BaseActor* other) override;

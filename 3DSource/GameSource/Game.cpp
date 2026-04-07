@@ -87,8 +87,19 @@ void Game::Finalize()
 // 最初のアクターを配置する際に使用
 void Game::CreateInitialActors()
 {
+	// ループで最大個数分、配列に追加する
+	//for (int i = 0; i < GroundSettings::groundMax; i++) {
+	//	p_actorManager->AddActor(std::make_unique<Ground>(p_actorManager.get()));
+	//}
 	p_actorManager->AddActor(std::make_unique<Player>());
-	p_actorManager->AddActor(std::make_unique<Ground>());
+	//p_actorManager->AddActor(std::make_unique<Ground>());
+	for (int i = 0; i < GroundSettings::groundMax; ++i){
+		p_actorManager->AddActor(std::make_unique<Ground>(p_actorManager.get()));
+	}
+
+	p_actorManager->AllInitialize(); // アクターの初期化
+
+	OutputDebugString("aiueo\n");
 }
 
 

@@ -11,6 +11,8 @@ public:
 	void Initialize();
 	void SetCameraPos(VECTOR targetPos);
 	void SetCameraRotate();
+	void GetCameraMatrix();
+	VECTOR GetCameraPos() const { return m_cameraPos; }
 private:
 	VECTOR m_cameraPos;
 	VECTOR m_cameraRota;

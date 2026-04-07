@@ -29,5 +29,4 @@ private:
 	void CreateInitialActors();
 	std::unique_ptr<ActorManager> p_actorManager;
 	std::unique_ptr<Camera> p_camera;
-	std::unique_ptr<Ground> p_ground;
 };

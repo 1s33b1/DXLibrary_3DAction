@@ -1,5 +1,7 @@
 #include "ActorManager.h"
 #include "BaseActor.h"
+#include "GameParameter.h"
+#include "DxLib.h"
 
 // コンストラクタ
 ActorManager::ActorManager()
@@ -12,7 +14,24 @@ ActorManager::~ActorManager()
 {
 }
 
-// すべてのアクターの更新処理
+// 初期化処理
+void ActorManager::AllInitialize()
+{
+	// すべてのアクターの初期化処理を行う
+	for(int i = 0; i < m_Children.size(); ++i){
+		m_Children[i]->Initialize();
+	}
+
+	// 床の初期化
+	for(int i = 0; i < m_Children.size(); ++i){
+		if (m_Children[i]->GetTag() == "Ground") {
+			// 最初の配置はパラメーターの値そのまま使用する。
+			m_Children[i]->SetPos(VGet(GroundSettings::firstGroundPosx, GroundSettings::firstGroundPosy, GroundSettings::firstGroundPosz + (GroundSettings::size * i)));
+		}
+	}
+}
+
+// すべてのアクターの更新処理。ループを抜けた後にアクターの削除処理を行う
 void ActorManager::AllUpdate()
 {
 	for(auto& actor : m_Children){

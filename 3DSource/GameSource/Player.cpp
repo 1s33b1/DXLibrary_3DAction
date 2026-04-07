@@ -19,7 +19,7 @@ Player::Player() : BaseActor(p_actorManager)
 	m_Status = UPDATE;
 	m_Color = GetColor(ColorSettings::Red_r, ColorSettings::Red_g, ColorSettings::Red_b);
 }
-Player::Player(ActorManager* manager)
+Player::Player(ActorManager* manager) : BaseActor(manager)
 {
 }
 
@@ -27,6 +27,11 @@ Player::Player(ActorManager* manager)
 Player::~Player()
 {
 	MV1DeleteModel(m_Model);
+}
+
+void Player::Initialize()
+{
+
 }
 
 // XVˆ—

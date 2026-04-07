@@ -33,3 +33,8 @@ void Camera::SetCameraRotate()
 {
 
 }
+
+void Camera::GetCameraMatrix()
+{
+	
+}

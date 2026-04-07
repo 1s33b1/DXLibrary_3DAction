@@ -22,9 +22,11 @@ namespace ExplosionSettings {
 }
 
 namespace PlayerSettings {
+	const float StartPos = 0; // 一定の
 	const int playerSpeed = 5;
 }
 
+// この色の数値たちは何かしら違う形でいい感じにまとめたい
 namespace ColorSettings {
 	const int Red_r = 255;
 	const int Red_g = 0;
@@ -40,9 +42,12 @@ namespace ColorSettings {
 }
 
 namespace GroundSettings{
-	const int groundMax; // 描画する地面の最大個数
-	const float cx = 0.5f;
-	const float cy = 0.5f;
-	const float size = 100.0f;
+	const int groundMax = 4; // 描画する地面の最大個数
+	const float firstGroundPosx = 0.0f;
+	const float firstGroundPosy = 0.0f;
+	const float firstGroundPosz = 0.0f;
+	const float cx = 0.5f; // 0.0～1.0の間で変更する
+	const float cy = 0.5f; // 0.0～1.0の間で変更する
+	const float size = 300.0f;
 	const float angle = 0.0f;
 }

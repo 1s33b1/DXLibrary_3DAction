@@ -10,6 +10,7 @@ class ActorManager
 public:
 	ActorManager();
 	~ActorManager();
+	void AllInitialize();
 	void AllUpdate(); // すべてのアクターの更新処理
 	void AllDraw(); // すべてのアクターの描画処理
 	void AllCollision(); // すべてのアクターの衝突処理
