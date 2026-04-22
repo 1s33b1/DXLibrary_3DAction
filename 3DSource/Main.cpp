@@ -4,9 +4,10 @@
 /// メイン関数
 /// RGB Runner作成中
 /// アクターシステムとシングルトンパターンを採用したシューティングゲーム
+/// 
 /// </summary>
 
-#include "DxLib.h"
+#include "pch.h"
 #include "Game.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

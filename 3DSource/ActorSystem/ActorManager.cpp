@@ -1,7 +1,7 @@
+#include "pch.h"
 #include "ActorManager.h"
 #include "BaseActor.h"
 #include "GameParameter.h"
-#include "DxLib.h"
 
 // コンストラクタ
 ActorManager::ActorManager()
@@ -17,16 +17,31 @@ ActorManager::~ActorManager()
 // 初期化処理
 void ActorManager::AllInitialize()
 {
+	m_firstGroundPosx = GroundSettings::groundMaxX * GroundSettings::size / -2; // 地面の生成を中心から行うため、地面の最大数と地面のサイズから最初の地面を生成する位置を計算している。
 	// すべてのアクターの初期化処理を行う
 	for(int i = 0; i < m_Children.size(); ++i){
 		m_Children[i]->Initialize();
 	}
 
 	// 床の初期化
-	for(int i = 0; i < m_Children.size(); ++i){
-		if (m_Children[i]->GetTag() == "Ground") {
-			// 最初の配置はパラメーターの値そのまま使用する。
-			m_Children[i]->SetPos(VGet(GroundSettings::firstGroundPosx, GroundSettings::firstGroundPosy, GroundSettings::firstGroundPosz + (GroundSettings::size * i)));
+	for(int x = 0; x < m_Children.size(); ++x){
+		// アクターの配列から地面のタグがついたものを探し配置する
+		if (m_Children[x]->GetTag() == "Ground") {
+			//m_Children[x]->SetPos(VGet(GroundSettings::firstGroundPosx + (GroundSettings::groundMaxX * GroundSettings::size * groundCountX / -2), 
+			//						   GroundSettings::firstGroundPosy, 
+			//						   GroundSettings::firstGroundPosz + (GroundSettings::size * groundCountZ))
+			//);
+			m_Children[x]->SetPos(VGet(m_firstGroundPosx + (GroundSettings::size * groundCountX),
+									   GroundSettings::firstGroundPosy,
+									   GroundSettings::firstGroundPosz + (GroundSettings::size * groundCountZ))
+			);
+
+			groundCountX++;
+			// 地面の生成を縦横で行うが、X座標のカウンタが最大値に達したらX座標のカウンタをリセットしたのちにZ座標のカウンタを増やす。
+			if (groundCountX >= GroundSettings::groundMaxX) {
+				groundCountX = 0;
+				groundCountZ++;
+			}
 		}
 	}
 }
@@ -37,7 +52,7 @@ void ActorManager::AllUpdate()
 	for(auto& actor : m_Children){
 		actor->Update();
 	}
-	ClearActor();
+	//ClearActor();
 }
 
 // すべてのアクターの描画処理
@@ -62,19 +77,17 @@ void ActorManager::AddActor(std::unique_ptr<BaseActor> actor)
 // アクターを削除する処理
 void ActorManager::ClearActor()
 {
-	for (auto it = m_Children.begin(); it != m_Children.end();) {
-		if (it->get()->GetStatus() == BaseActor::DEAD) {
-			it = m_Children.erase(it); // 死亡しているアクターを削除し、メモリを解放する
-		}
-		else {
-			++it; // 削除していないアクターならば次に進む
-		}
+	for (int i = 0; i < m_Children.size(); ++i) {
+		m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(),
+			[](const std::unique_ptr<BaseActor>& actor) {
+				return actor->GetStatus() == BaseActor::DEAD; // 死亡しているアクターを削除する条件
+			}), m_Children.end());
 	}
-}
 
-// すべてのアクターを削除する関数
-void ActorManager::AllDestroy(BaseActor* actor)
-{
+	// ここに書く処理はゲーム終了時にすべてのアクターを削除するための処理を記述する。
+	for(int i= 0; i < m_Children.size(); ++i){
+		m_Children.erase(m_Children.begin() + i);
+	}
 }
 
 // プレイヤーの位置を返す関数

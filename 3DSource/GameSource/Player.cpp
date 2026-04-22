@@ -5,8 +5,8 @@
 // 赤色、
 //---------------------------------------
 
+#include "pch.h"
 #include "Player.h"
-#include "DxLib.h"
 #include "GameParameter.h"
 
 // コンストラクタ
@@ -63,10 +63,10 @@ void Player::KeyInput()
 		m_Position.z -= PlayerSettings::playerSpeed; // 後退
 	}	
 	if (CheckHitKey(KEY_INPUT_A)) {
-		m_Position.x -= PlayerSettings::playerSpeed; // 後退
+		m_Position.x -= PlayerSettings::playerSpeed; // 左方向
 	}
 	if (CheckHitKey(KEY_INPUT_D)) {
-		m_Position.x += PlayerSettings::playerSpeed; // 後退
+		m_Position.x += PlayerSettings::playerSpeed; // 右方向
 	}
 }
 

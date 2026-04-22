@@ -1,8 +1,5 @@
 #pragma once
-#include <memory>
-#include <vector>
-#include <string>
-#include "DxLib.h"
+#include "pch.h"
 class ActorManager;
 
 class BaseActor
@@ -29,7 +26,7 @@ public:
 	std::string GetTag() const { return m_Tag; } // アクターのタグ
 
 	// セッター
-	void SetPos(VECTOR setPosition);
+	void SetPos(VECTOR setPosition) { m_Position = setPosition; }
 	void SetStatus(ActorStatus status) { m_Status = status; } // アクターのステータスを設定する関数
 
 	// 現在はAddメソッドは使用していない

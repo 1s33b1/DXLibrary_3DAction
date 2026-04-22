@@ -3,8 +3,7 @@
 ///
 #pragma once
 #include "BaseActor.h"
-#include <string>
-#include "DxLib.h"
+#include "pch.h"
 
 class ActorManager;
 

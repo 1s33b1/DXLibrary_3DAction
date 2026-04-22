@@ -14,10 +14,10 @@ public:
 	void Draw() override;
 	void OnCollision(BaseActor* other) override;
 	void Relocation(float zPos);
-	//void GetCameraMatrix()
+	void GroundChecker();
+	void GroundForward();
 private:
 	int m_GroundPhoto; // 地面の画像。
-	MATRIX m_GroundMatrix; // 地面のマトリックス
-	Camera m_camera;
-	float m_angle;
+	//float m_angle;
+	//float m_acceleration; // 地面の加速度(現在未実装)
 };

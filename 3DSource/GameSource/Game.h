@@ -1,5 +1,6 @@
 #pragma once
-#include <memory>
+
+#include "pch.h"
 class Camera;
 class ActorManager;
 class Ground;
@@ -22,11 +23,12 @@ public:
 
 	int RunGame(); // メインループ
 	bool Initialize(); // 初期化処理
-	void Finalize(); // 終了処理
 private:
 	void Update(); // 更新処理
 	void Draw(); // 描画処理
-	void CreateInitialActors();
+	void CreateInitialActors(); // 初期化時のアクター生成処理
+	void Finalize(); // 終了処理
+	void Clear(); // 終了時のリソース解放処理
 	std::unique_ptr<ActorManager> p_actorManager;
 	std::unique_ptr<Camera> p_camera;
 };

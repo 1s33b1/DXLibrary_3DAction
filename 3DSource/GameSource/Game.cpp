@@ -1,9 +1,6 @@
-//
-// シングルトンパターンで作成
-//
 
+#include "pch.h"
 #include "Game.h"
-#include "DxLib.h"
 #include "GameParameter.h"
 #include "ActorManager.h"
 #include "Camera.h"
@@ -67,8 +64,9 @@ bool Game::Initialize()
 	SetWaitVSyncFlag(TRUE); // 垂直同期を有効にする。本来であればあんまりおすすめされないらしい。	
 	// DXライブラリ初期化処理
 	if (DxLib_Init() == -1) return false;
-	p_actorManager = std::make_unique<ActorManager>(); // マネージャーの生成
-	p_camera = std::make_unique<Camera>();
+	p_actorManager = std::make_unique<ActorManager>(); // アクターマネージャーの生成
+	p_camera = std::make_unique<Camera>(); // カメラの生成
+	p_camera->Initialize(); // カメラの初期化
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetMouseDispFlag(FALSE); // マウスカーソルを非表示
 	SetUseZBuffer3D(TRUE); // Zバッファを有効
@@ -81,25 +79,28 @@ bool Game::Initialize()
 // 終了処理
 void Game::Finalize()
 {
-	DxLib_End();				// ＤＸライブラリ使用の終了処理
+	Clear();
+	DxLib_End(); // ＤＸライブラリ使用の終了処理
 }
 
 // 最初のアクターを配置する際に使用
 void Game::CreateInitialActors()
 {
-	// ループで最大個数分、配列に追加する
-	//for (int i = 0; i < GroundSettings::groundMax; i++) {
-	//	p_actorManager->AddActor(std::make_unique<Ground>(p_actorManager.get()));
-	//}
+	// プレイヤーの生成
 	p_actorManager->AddActor(std::make_unique<Player>());
-	//p_actorManager->AddActor(std::make_unique<Ground>());
-	for (int i = 0; i < GroundSettings::groundMax; ++i){
+	
+	// 地面の生成、配列への追加
+	for (int i = 0; i < GroundSettings::groundMaxX * GroundSettings::groundMaxZ; ++i) {
 		p_actorManager->AddActor(std::make_unique<Ground>(p_actorManager.get()));
 	}
 
 	p_actorManager->AllInitialize(); // アクターの初期化
 
-	OutputDebugString("aiueo\n");
+	//OutputDebugString("aiueo\n");
 }
 
-
+// スマートポインタであっても自分で管理するようにする
+void Game::Clear()
+{
+	p_actorManager->ClearActor();
+}
