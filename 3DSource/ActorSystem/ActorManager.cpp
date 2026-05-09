@@ -68,7 +68,7 @@ void ActorManager::AllCollision()
 {
 }
 
-// アクターを追加する関数
+// アクターをベクター配列に追加
 void ActorManager::AddActor(std::unique_ptr<BaseActor> actor)
 {
 	m_Children.push_back(std::move(actor));
@@ -77,6 +77,14 @@ void ActorManager::AddActor(std::unique_ptr<BaseActor> actor)
 // アクターを削除する処理
 void ActorManager::ClearActor()
 {
+	// 配列にどのアクターが入っているか確認する
+	for (int i = 0; i < m_Children.size(); ++i) {
+		char buf[128];
+		sprintf_s(buf, sizeof(buf), "Actor Tag: %d %s\n", i, m_Children[i]->GetTag().c_str());
+		OutputDebugString(buf);
+	}
+
+	// 配列から死亡しているアクターを削除する
 	for (int i = 0; i < m_Children.size(); ++i) {
 		m_Children.erase(std::remove_if(m_Children.begin(), m_Children.end(),
 			[](const std::unique_ptr<BaseActor>& actor) {

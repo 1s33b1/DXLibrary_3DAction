@@ -13,9 +13,12 @@ public:
 	void Update() override;
 	void Draw() override;
 	void OnCollision(BaseActor* other) override;
-	void Relocation(float zPos);
+	void Relocation(VECTOR newPosition) override; // 再配置処理。
+	void MovePosition(VECTOR move) override; // 前方に移動させる関数
+	//void Relocation(float zPos);
 	void GroundChecker();
-	void GroundForward();
+
+	//void GroundForward();
 private:
 	int m_GroundPhoto; // 地面の画像。
 	//float m_angle;

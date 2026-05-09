@@ -1,4 +1,3 @@
-
 #include "pch.h"
 #include "Game.h"
 #include "GameParameter.h"
@@ -6,6 +5,7 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Ground.h"
+#include "Obstacle.h"
 
 Game::Game()
 {
@@ -62,6 +62,7 @@ bool Game::Initialize()
 {
 	SetGraphMode(ScreenSettings::screenWidth, ScreenSettings::screenHeight, ScreenSettings::screenColorBit); // 画面のサイズを決定
 	SetWaitVSyncFlag(TRUE); // 垂直同期を有効にする。本来であればあんまりおすすめされないらしい。	
+	SetMainWindowText("RGB Runner"); // ウィンドウのタイトル
 	// DXライブラリ初期化処理
 	if (DxLib_Init() == -1) return false;
 	p_actorManager = std::make_unique<ActorManager>(); // アクターマネージャーの生成
@@ -79,24 +80,27 @@ bool Game::Initialize()
 // 終了処理
 void Game::Finalize()
 {
-	Clear();
+	p_actorManager->ClearActor(); // アクターマネジャーのアクター削除処理
+	//Clear();
 	DxLib_End(); // ＤＸライブラリ使用の終了処理
 }
 
 // 最初のアクターを配置する際に使用
 void Game::CreateInitialActors()
 {
-	// プレイヤーの生成
+	// プレイヤーの生成、配列へ追加
 	p_actorManager->AddActor(std::make_unique<Player>());
 	
-	// 地面の生成、配列への追加
+	// 地面の生成、配列へ追加
 	for (int i = 0; i < GroundSettings::groundMaxX * GroundSettings::groundMaxZ; ++i) {
 		p_actorManager->AddActor(std::make_unique<Ground>(p_actorManager.get()));
 	}
 
-	p_actorManager->AllInitialize(); // アクターの初期化
+	// 障害物の生成、ベクター配列へ追加
+	p_actorManager->AddActor(std::make_unique<Obstacle>(p_actorManager.get()));
 
-	//OutputDebugString("aiueo\n");
+	// 全アクターの初期化
+	p_actorManager->AllInitialize(); 
 }
 
 // スマートポインタであっても自分で管理するようにする

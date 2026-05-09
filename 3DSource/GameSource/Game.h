@@ -3,7 +3,6 @@
 #include "pch.h"
 class Camera;
 class ActorManager;
-class Ground;
 
 class Game
 {

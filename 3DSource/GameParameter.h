@@ -55,4 +55,16 @@ namespace GroundSettings{
 	const float cy = 0.5f; // 0.0`1.0‚ÌŠÔ‚Å•ÏX‚·‚é
 	const float size = 300.0f;
 	const float angle = 0.0f;
+	enum GroundColor {
+		Red,
+		Blue,
+		Green
+	};
+}
+
+namespace ObstacleSettings {
+	const float obstacleRadius = 20.0f; // áŠQ•¨‚Ì”¼Œa
+	const float obstacleSpeed = 1.0f; // áŠQ•¨‚ÌƒXƒs[ƒh
+	const int obstacleMax = 10; // •`‰æ‚·‚éáŠQ•¨‚ÌÅ‘åŒÂ”
+	const int obstacleVertex = 36; // áŠQ•¨‚Ì’¸“_”
 }
