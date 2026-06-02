@@ -14,6 +14,7 @@ public:
 	void AllCollision(); // 全アクターの衝突処理
 	void AddActor(std::unique_ptr<BaseActor> actor); // アクターをベクター配列に追加する関数
 	void ClearActor(); // アクターを削除する関数。ゲームの終了時に使用する
+	void CheckCollisionDetection(); // アクター同士の衝突検知を行う関数
 	VECTOR GetPlayerPosition(); // プレイヤーの位置を取得する関数。
 private:
 	std::vector<std::unique_ptr<BaseActor>> m_Children; // アクターのベクター配列

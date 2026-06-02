@@ -97,6 +97,8 @@ void Game::CreateInitialActors()
 	}
 
 	// 障害物の生成、ベクター配列へ追加
+	//for (int i = 0; i < ObstacleSettings::obstacleMax; ++i) {
+	//}
 	p_actorManager->AddActor(std::make_unique<Obstacle>(p_actorManager.get()));
 
 	// 全アクターの初期化

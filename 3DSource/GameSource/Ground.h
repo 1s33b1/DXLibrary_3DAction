@@ -13,6 +13,7 @@ public:
 	void Update() override;
 	void Draw() override;
 	void OnCollision(BaseActor* other) override;
+	void CheckBehindPlayer() override; // プレイヤーの後ろに行ったかの確認。
 	void Relocation(VECTOR newPosition) override; // 再配置処理。
 	void MovePosition(VECTOR move) override; // 前方に移動させる関数
 	//void Relocation(float zPos);

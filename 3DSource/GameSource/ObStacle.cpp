@@ -1,4 +1,3 @@
-//Obstacleクラス
 // Obstacleクラス(正方形を作る)
 // m_positionのyの値をGameParameterとかで宣言した半径を代入する
 // VERTEX3D変数配列にGameParameterの半径とかを使って頂点座標を代入していく。
@@ -9,11 +8,11 @@
 #include "ObStacle.h"
 #include "BaseActor.h"
 #include "GameParameter.h"
+#include "ActorManager.h"
 
 // コンストラクタ
 Obstacle::Obstacle() : BaseActor(nullptr)
 {
-
 }
 
 // 引数付きコンストラクタ
@@ -24,6 +23,7 @@ Obstacle::Obstacle(ActorManager* manager) : BaseActor(manager)
 	m_Tag = "Obstacle"; // タグを設定
 	m_Status = UPDATE;	
 	m_ObstaclePhotoHandle = LoadGraph("Contents\\Obstacle\\Obstacle.jpg");
+	m_ColorType = ColorType::None;
 	//m_ObstaclePhotoHandle = LoadGraph("Contents\\Ground\\ground.png");
 	//m_Color = GetColor(ColorSettings::Red_r, ColorSettings::Red_g, ColorSettings::Red_b);
 }
@@ -37,13 +37,14 @@ Obstacle::~Obstacle()
 // 初期化処理
 void Obstacle::Initialize()
 {
-	}
+	m_ColorType = ColorType::Red; // 障害物の色を赤色に設定
+}
 
 // 更新処理
 void Obstacle::Update()
 {
 	MovePosition(VGet(0.0f, 0.0f, ObstacleSettings::obstacleSpeed)); // 地面と同じ速度で前に動かす
-
+	CheckBehindPlayer(); // プレイヤーの後ろに行ったか確認して、行ってたら再配置
 }
 
 // 描画処理
@@ -150,9 +151,25 @@ void Obstacle::DrawCube(VECTOR CENTER, float RADIUS)
 	m_Vertexs[index++].pos = VAdd(CENTER, vertexPos4); // 底面の右下の頂点
 	m_Vertexs[index++].pos = VAdd(CENTER, vertexPos7); // 底面の左下の頂点
 
+	switch (m_ColorType)
+	{
+	case ColorType::Red: // 障害物の色を赤色に設定
+		m_drawColor = GetColorU8(ColorSettings::Red_r, ColorSettings::Red_g, ColorSettings::Red_b, 255);
+		break;
+	case ColorType::Green: // 障害物の色を緑色に設定
+		m_drawColor = GetColorU8(ColorSettings::Green_r, ColorSettings::Green_g, ColorSettings::Green_b, 255);
+		break;
+	case ColorType::Blue: // 障害物の色を青色に設定
+		m_drawColor = GetColorU8(ColorSettings::Blue_r, ColorSettings::Blue_g, ColorSettings::Blue_b, 255);
+		break;
+	default:
+		m_drawColor = GetColorU8(255, 255, 255, 255); // デフォルトは白色
+		break;
+	}
+
 	// 全頂点の色と法線の設定
 	for (int i = 0; i < std::size(m_Vertexs); i++) {
-		m_Vertexs[i].dif = GetColorU8(255, 255, 255, 255); // ディフューズカラー(光の反射色)を白色
+		m_Vertexs[i].dif = m_drawColor; // ディフューズカラー(光の反射色)を白色
 		m_Vertexs[i].norm = normal[i / 6]; // 法線ベクトル
 
 		// 各面ごとに法線ベクトルの方向を設定
@@ -167,12 +184,42 @@ void Obstacle::DrawCube(VECTOR CENTER, float RADIUS)
 	DrawPolygon3D(m_Vertexs, 12, m_ObstaclePhotoHandle, FALSE); // 12は三角形の数(6面 * 2三角形)
 }
 
+// 再配置処理
 void Obstacle::Relocation(VECTOR newPosition)
 {
 	m_Position = newPosition;
+
+	int randColor = GetRand(3); // 0～2の乱数を生成して、障害物の色をランダムに変更する
+	switch (randColor)
+	{
+	case 0: m_ColorType = ColorType::Red; break;
+	case 1:  m_ColorType = ColorType::Green; break;
+	case 2:  m_ColorType = ColorType::Blue; break;
+	default:
+		break;
+	}
 }
 
+// 移動処理
 void Obstacle::MovePosition(VECTOR move)
 {
 	BaseActor::MovePosition(move); // ベースクラスの移動処理を呼び出す
+}
+
+// プレイヤーの後ろに行ったかの確認
+void Obstacle::CheckBehindPlayer()
+{
+	//BaseActor::CheckBehindPlayer(); // ベースクラスの確認処理を呼び出す
+	if (!p_actorManager) return;
+	VECTOR playerPos = p_actorManager->GetPlayerPosition(); // プレイヤーの場所を取得
+
+	float backEdge = m_Position.z + (ObstacleSettings::obstacleRadius / 2.0f); // 障害物の後ろの端
+
+	// 障害物の場所がプレイヤーの地面の端を超えたとき、再配置
+	if (playerPos.z > backEdge + GroundSettings::size) {
+		float totalLength = GroundSettings::size * GroundSettings::groundMaxZ; // 全長は地面一つ分のサイズと地面の数を掛けたもの
+
+		//Relocation(m_Position.z + totalLength); // 変更前のコード(地面のz座標だけを変更して再配置)
+		Relocation(VGet(m_Position.x, m_Position.y, m_Position.z + totalLength));
+	}
 }

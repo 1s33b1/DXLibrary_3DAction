@@ -8,18 +8,6 @@ namespace ScreenSettings {
 	const int screenColorBit = 16;
 }
 
-//namespace BulletSettings {
-//	const int bulletLimit = 10;
-//}
-
-//namespace EnemySettings {
-//	const int enemyLimit = 5; // 敵を生成する限界値
-//	const int firstEnemyPosx = 100;
-//	const int firstEnemyPosy = -50;
-//	const int intervalSpace = 30; // 敵と敵を並べるときの間隔
-//	const int enemyBulletLimit = 5;
-//}
-
 namespace PlayerSettings {
 	const float StartPos = 0; 
 	const int playerSpeed = 5;
@@ -47,7 +35,6 @@ namespace GroundSettings{
 	const float  groundSpeed = 1.0f; // 地面のスピード
 
 	const float firstGroundPosx = 0.0f;
-	//const float firstGroundPosx = -300.0f;
 	const float firstGroundPosy = 0.0f;
 	const float firstGroundPosz = 0.0f;
 	
@@ -55,13 +42,9 @@ namespace GroundSettings{
 	const float cy = 0.5f; // 0.0～1.0の間で変更する
 	const float size = 300.0f;
 	const float angle = 0.0f;
-	enum GroundColor {
-		Red,
-		Blue,
-		Green
-	};
 }
 
+// 障害物のパラメーター関連
 namespace ObstacleSettings {
 	const float obstacleRadius = 20.0f; // 障害物の半径
 	const float obstacleSpeed = 1.0f; // 障害物のスピード

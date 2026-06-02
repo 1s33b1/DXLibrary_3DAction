@@ -13,7 +13,6 @@ BaseActor::BaseActor()
 BaseActor::BaseActor(ActorManager* manager)
 	:m_Tag("NoName"),
 	p_actorManager(manager),
-	m_Color(0),
 	m_Position(0.0f,0.0f,0.0f),m_Rotation(0.0f,0.0f,0.0f),
 	m_Status(REST)
 {
@@ -54,19 +53,18 @@ void BaseActor::MovePosition(VECTOR move)
 // プレイヤーの後ろに行ったかの確認。まだ未完成
 void BaseActor::CheckBehindPlayer()
 {
-	if (!p_actorManager) return;
-	VECTOR playerPos = p_actorManager->GetPlayerPosition(); // プレイヤーの場所を取得
+	//if (!p_actorManager) return;
+	//VECTOR playerPos = p_actorManager->GetPlayerPosition(); // プレイヤーの場所を取得
 
-	float backEdge = m_Position.z + (GroundSettings::size / 2.0f); // 地面の後ろの端
+	//float backEdge = m_Position.z + (GroundSettings::size / 2.0f); // 地面の後ろの端
 
-	// 地面の場所がプレイヤーの地面の端を超えたとき、再配置
-	if (playerPos.z > backEdge + GroundSettings::size) {
-		float totalLength = GroundSettings::size * GroundSettings::groundMaxZ; // 全長は地面一つ分のサイズと地面の数を掛けたもの
+	//// 地面の場所がプレイヤーの地面の端を超えたとき、再配置
+	//if (playerPos.z > backEdge + GroundSettings::size) {
+	//	float totalLength = GroundSettings::size * GroundSettings::groundMaxZ; // 全長は地面一つ分のサイズと地面の数を掛けたもの
 
-		//Relocation(m_Position.z + totalLength); // 変更前のコード(地面のz座標だけを変更して再配置)
-		Relocation(VGet(m_Position.x, m_Position.y, m_Position.z + totalLength));
-	}
-
+	//	//Relocation(m_Position.z + totalLength); // 変更前のコード(地面のz座標だけを変更して再配置)
+	//	Relocation(VGet(m_Position.x, m_Position.y, m_Position.z + totalLength));
+	//}
 }
 
 // 使用していないメソッド

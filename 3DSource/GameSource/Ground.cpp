@@ -21,6 +21,7 @@ Ground::Ground(ActorManager* manager) : BaseActor(manager)
 	m_Tag = "Ground"; // タグを設定
 	m_Status = UPDATE;
 	m_GroundPhoto = LoadGraph("Contents\\Ground\\ground.png");
+	m_ColorType = ColorType::None; // 地面は色なし
 	//char buf[128];
 	//sprintf_s(buf, sizeof(buf), "basyo: x=%f, y=%f, z=%f", m_Position.x, m_Position.y, m_Position.z);
 	//OutputDebugString(buf);
@@ -41,7 +42,8 @@ void Ground::Initialize()
 void Ground::Update()
 {
 	MovePosition(VGet(0.0f, 0.0f, GroundSettings::groundSpeed));
-	GroundChecker();
+	//GroundChecker();
+	CheckBehindPlayer();
 }
 
 // 描画処理
@@ -95,6 +97,23 @@ void Ground::OnCollision(BaseActor* actor)
 	
 // 地面がプレイヤーの座標より少し後ろに行ったかの確認。BaseActorのCheckBehindPlayerに移動させる
 void Ground::GroundChecker()
+{
+	if (!p_actorManager) return;
+	VECTOR playerPos = p_actorManager->GetPlayerPosition(); // プレイヤーの場所を取得
+
+	float backEdge = m_Position.z + (GroundSettings::size / 2.0f); // 地面の後ろの端
+
+	// 地面の場所がプレイヤーの地面の端を超えたとき、再配置
+	if (playerPos.z > backEdge + GroundSettings::size) {
+		float totalLength = GroundSettings::size * GroundSettings::groundMaxZ; // 全長は地面一つ分のサイズと地面の数を掛けたもの
+
+		//Relocation(m_Position.z + totalLength); // 変更前のコード(地面のz座標だけを変更して再配置)
+		Relocation(VGet(m_Position.x, m_Position.y, m_Position.z + totalLength));
+	}
+}
+
+// オブジェクトの座標がプレイヤーより後ろに行ったかの確認
+void Ground::CheckBehindPlayer()
 {
 	if (!p_actorManager) return;
 	VECTOR playerPos = p_actorManager->GetPlayerPosition(); // プレイヤーの場所を取得

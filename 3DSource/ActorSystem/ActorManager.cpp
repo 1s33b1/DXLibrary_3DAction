@@ -27,14 +27,9 @@ void ActorManager::AllInitialize()
 	for(int x = 0; x < m_Children.size(); ++x){
 		// アクターの配列から地面のタグがついたものを探し配置する
 		if (m_Children[x]->GetTag() == "Ground") {
-			//m_Children[x]->SetPos(VGet(GroundSettings::firstGroundPosx + (GroundSettings::groundMaxX * GroundSettings::size * groundCountX / -2), 
-			//						   GroundSettings::firstGroundPosy, 
-			//						   GroundSettings::firstGroundPosz + (GroundSettings::size * groundCountZ))
-			//);
 			m_Children[x]->SetPos(VGet(m_firstGroundPosx + (GroundSettings::size * groundCountX),
 									   GroundSettings::firstGroundPosy,
-									   GroundSettings::firstGroundPosz + (GroundSettings::size * groundCountZ))
-			);
+									   GroundSettings::firstGroundPosz + (GroundSettings::size * groundCountZ)));
 
 			groundCountX++;
 			// 地面の生成を縦横で行うが、X座標のカウンタが最大値に達したらX座標のカウンタをリセットしたのちにZ座標のカウンタを増やす。
@@ -78,11 +73,11 @@ void ActorManager::AddActor(std::unique_ptr<BaseActor> actor)
 void ActorManager::ClearActor()
 {
 	// 配列にどのアクターが入っているか確認する
-	for (int i = 0; i < m_Children.size(); ++i) {
-		char buf[128];
-		sprintf_s(buf, sizeof(buf), "Actor Tag: %d %s\n", i, m_Children[i]->GetTag().c_str());
-		OutputDebugString(buf);
-	}
+	//for (int i = 0; i < m_Children.size(); ++i) {
+	//	char buf[128];
+	//	sprintf_s(buf, sizeof(buf), "Actor Tag: %d %s\n", i, m_Children[i]->GetTag().c_str());
+	//	OutputDebugString(buf);
+	//}
 
 	// 配列から死亡しているアクターを削除する
 	for (int i = 0; i < m_Children.size(); ++i) {
@@ -108,4 +103,14 @@ VECTOR ActorManager::GetPlayerPosition()
 	}
 	// プレイヤーが見つからなかった場合、原点を返す
 	return VGet(0.0f, 0.0f, 0.0f);
+}
+
+// アクター同士の衝突検知を行う関数
+void ActorManager::CheckCollisionDetection()
+{
+	VECTOR playerPos = GetPlayerPosition(); // プレイヤーの位置を取得
+
+	for (auto& actor : m_Children) {
+
+	}
 }
